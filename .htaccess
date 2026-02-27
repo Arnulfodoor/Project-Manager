@@ -1,0 +1,33 @@
+RewriteEngine On
+
+# -----------------------------
+# 🔒 BLOQUEAR CARPETAS SENSIBLES
+# -----------------------------
+
+RewriteRule ^config/ - [F,L]
+RewriteRule ^includes/ - [F,L]
+
+# -----------------------------
+# QUITAR .php DE LAS URLS
+# -----------------------------
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
+
+# -----------------------------
+# LOGIN Y HOME LIMPIOS
+# -----------------------------
+
+RewriteRule ^login$ login.php [L]
+RewriteRule ^home$ index.php [L]
+
+# -----------------------------
+# ADMIN LIMPIO
+# -----------------------------
+
+RewriteRule ^admin/main$ admin/dashboard.php [L]
+RewriteRule ^admin/crear$ admin/crear_proyecto.php [L]
+RewriteRule ^admin/ver/([0-9]+)$ admin/ver_proyecto.php?id=$1 [L]
+RewriteRule ^admin/editar/([0-9]+)$ admin/editar_proyecto.php?id=$1 [L]
+RewriteRule ^admin/eliminar/([0-9]+)$ admin/eliminar_proyecto.php?id=$1 [L]
